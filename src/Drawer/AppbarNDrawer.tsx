@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 20,
     },
     toolbarMargin: theme.mixins.toolbar,
+    aboveDrawer: {
+      position: "relative",
+      zIndex: 1400,
+    },
   })
 );
 
@@ -38,15 +43,16 @@ interface IMyToolbar {
 
 const MyToolbar: React.FC<IMyToolbar> = ({ title, onMenuClick }) => {
   const classes = useStyles();
+
   return (
     <>
-      <AppBar>
+      <AppBar className={classes.aboveDrawer}>
         <Toolbar>
           <IconButton
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-            onClick={onMenuClick}
+            onClick={() => onMenuClick()}
           >
             <MenuIcon />
           </IconButton>
@@ -63,35 +69,44 @@ const MyToolbar: React.FC<IMyToolbar> = ({ title, onMenuClick }) => {
 interface IMyDrawer {
   variant?: DrawerProps["variant"];
   open: boolean;
-  onClose: any;
+  drawer: boolean;
+  setDrawer: React.Dispatch<boolean>;
   setTitle: React.Dispatch<string>;
 }
 
 const MyDrawer: React.FC<IMyDrawer> = ({
   variant,
   open,
-  onClose,
+  drawer,
+  setDrawer,
   setTitle,
 }) => {
   const classes = useStyles();
   const onClick = (title: string) => () => {
     setTitle(title);
-    onClose();
+    setDrawer(variant === "temporary" ? false : drawer);
   };
   return (
-    <Drawer variant={variant} open={open} onClose={onClose}>
-      <List>
-        <ListItem button onClick={onClick("Home")}>
-          <ListItemText>Home</ListItemText>
-        </ListItem>
-        <ListItem button onClick={onClick("Page2")}>
-          <ListItemText>Page2</ListItemText>
-        </ListItem>
-        <ListItem button onClick={onClick("Page3")}>
-          <ListItemText>Page3</ListItemText>
-        </ListItem>
-      </List>
-    </Drawer>
+    <div>
+      <Drawer variant={variant} open={open} onClose={() => setDrawer(false)}>
+        <div
+          className={clsx({
+            [classes.toolbarMargin]: variant === "persistent",
+          })}
+        />
+        <List>
+          <ListItem button onClick={onClick("Home")}>
+            <ListItemText>Home</ListItemText>
+          </ListItem>
+          <ListItem button onClick={onClick("Page2")}>
+            <ListItemText>Page2</ListItemText>
+          </ListItem>
+          <ListItem button onClick={onClick("Page3")}>
+            <ListItemText>Page3</ListItemText>
+          </ListItem>
+        </List>
+      </Drawer>
+    </div>
   );
 };
 
@@ -105,7 +120,13 @@ export const DrawerNAppbar = () => {
   return (
     <div className={classes.root}>
       <MyToolbar title={title} onMenuClick={toggleDrawer} />
-      <MyDrawer open={drawer} setTitle={setTitle} onClose={toggleDrawer} />
+      <MyDrawer
+        variant="persistent"
+        open={drawer}
+        setTitle={setTitle}
+        drawer={drawer}
+        setDrawer={setDrawer}
+      />
     </div>
   );
 };

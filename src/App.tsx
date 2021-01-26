@@ -1,8 +1,9 @@
 import React from "react";
-import { DrawerNAppbar } from "./Drawer/AppbarNDrawer";
+
+import TabSort from "./Tab/TabSort";
 
 function App() {
-  return <DrawerNAppbar />;
+  return <TabSort />;
 }
 
 export default App;

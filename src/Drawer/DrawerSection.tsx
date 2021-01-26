@@ -1,5 +1,6 @@
 import {
   Button,
+  Collapse,
   Drawer,
   Grid,
   List,
@@ -12,17 +13,23 @@ import {
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
-import { Link, Route } from "react-router-dom";
-import HomeIcon from "@material-ui/icons/Home";
-import WebIcon from "@material-ui/icons/Web";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
+import { setSyntheticTrailingComments } from "typescript";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     alignContent: {
       alignSelf: "center",
+    },
+    listSubheader: {
+      padding: 0,
+      minWidth: 0,
+      color: "inherit",
+      "&:hover": {
+        background: theme.palette.background.default,
+      },
     },
   })
 );
@@ -37,6 +44,7 @@ interface Iitem {
 interface IListItem {
   items: Iitem[];
   onClick: any;
+  visible: boolean;
 }
 
 interface ISections {
@@ -46,19 +54,33 @@ interface ISections {
   network: Iitem[];
 }
 
-const ListItems: React.FC<IListItem> = ({ items, onClick }) => {
+interface IActiveSections {
+  cpu: boolean;
+  memory: boolean;
+  storage: boolean;
+  network: boolean;
+}
+
+const ListItems: React.FC<IListItem> = ({ items, onClick, visible }) => {
   return (
     <>
-      {items
-        .filter(({ hidden }) => !hidden)
-        .map(({ label, disabled, Icon }, i) => (
-          <ListItem button key={i} disabled={disabled} onClick={onClick(label)}>
-            <ListItemIcon>
-              <Icon />
-            </ListItemIcon>
-            <ListItemText>{label}</ListItemText>
-          </ListItem>
-        ))}
+      <Collapse in={visible}>
+        {items
+          .filter(({ hidden }) => !hidden)
+          .map(({ label, disabled, Icon }, i) => (
+            <ListItem
+              button
+              key={i}
+              disabled={disabled}
+              onClick={onClick(label)}
+            >
+              <ListItemIcon>
+                <Icon />
+              </ListItemIcon>
+              <ListItemText>{label}</ListItemText>
+            </ListItem>
+          ))}
+      </Collapse>
     </>
   );
 };
@@ -86,10 +108,21 @@ export const DrawerSections = () => {
       { label: "Usage", Icon: ShowChartIcon },
     ],
   });
+  const [sections, setSections] = useState<IActiveSections>({
+    cpu: true,
+    memory: false,
+    storage: false,
+    network: false,
+  });
 
   const onClick = (content: string) => () => {
     setOpen(false);
     setContent(content);
+  };
+  const toggleSection = (
+    name: "cpu" | "memory" | "storage" | "network"
+  ) => () => {
+    setSections({ ...sections, [name]: !sections[name] });
   };
   return (
     <Grid container justify="space-between">
@@ -99,14 +132,62 @@ export const DrawerSections = () => {
       <Grid item>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <List>
-            <ListSubheader>CPU</ListSubheader>
-            <ListItems items={items.cpu} onClick={onClick} />
-            <ListSubheader>Memory</ListSubheader>
-            <ListItems items={items.memory} onClick={onClick} />
-            <ListSubheader>Storage</ListSubheader>
-            <ListItems items={items.storage} onClick={onClick} />
-            <ListSubheader>Network</ListSubheader>
-            <ListItems items={items.network} onClick={onClick} />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection("cpu")}
+              >
+                CPU
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.cpu}
+              items={items.cpu}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection("memory")}
+              >
+                MEMORY
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.memory}
+              items={items.memory}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection("storage")}
+              >
+                STORAGE
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.storage}
+              items={items.storage}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection("network")}
+              >
+                NETWORK
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.network}
+              items={items.network}
+              onClick={onClick}
+            />
           </List>
         </Drawer>
       </Grid>

@@ -1,9 +1,9 @@
 import React from "react";
-
-import TabSort from "./Tab/TabSort";
+import { AbstractingTabContent } from "./Tab/AbstractingTabContent";
+import { TabBasedOnState } from "./Tab/TabBasedOnState";
 
 function App() {
-  return <TabSort />;
+  return <AbstractingTabContent />;
 }
 
 export default App;

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { ScrollableAccordion } from "./Accordion/ScrollableAccordion";
+import { StateListItem } from "./List/StateListItem";
 
 function App() {
-  return <ScrollableAccordion />;
+  return <StateListItem />;
 }
 
 export default App;

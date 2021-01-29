@@ -14,6 +14,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     list: {
       height: 300,
+      paddingBottom: 10,
+      paddingTop: 10,
+    },
+    listItem: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      padding: "0 25px",
+      backgroundColor: "#fff",
+      borderBottom: "1px solid #e0e0e0",
     },
     paper: {
       margin: theme.spacing(3),
@@ -41,7 +51,7 @@ export const ScrollingList = () => {
     const item = items[index];
 
     return (
-      <ListItem key={key} style={style}>
+      <ListItem key={key} style={style} className={classes.listItem}>
         <ListItemText primary={isScrolling ? "..." : item} />
       </ListItem>
     );

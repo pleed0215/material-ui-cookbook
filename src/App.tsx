@@ -1,9 +1,8 @@
 import React from "react";
-
-import { StateListItem } from "./List/StateListItem";
+import { ListControls } from "./List/ListControls";
 
 function App() {
-  return <StateListItem />;
+  return <ListControls />;
 }
 
 export default App;

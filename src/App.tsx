@@ -1,8 +1,9 @@
 import React from "react";
-import { ListControls } from "./List/ListControls";
+
+import { ScrollingList } from "./List/ListScroll";
 
 function App() {
-  return <ListControls />;
+  return <ScrollingList />;
 }
 
 export default App;

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { ScrollingList } from "./List/ListScroll";
+import { SortableColumn } from "./Table/SortableColumns";
 
 function App() {
-  return <ScrollingList />;
+  return <SortableColumn />;
 }
 
 export default App;

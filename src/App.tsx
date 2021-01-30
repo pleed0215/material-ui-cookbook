@@ -1,9 +1,9 @@
 import React from "react";
 
-import { SortableColumn } from "./Table/SortableColumns";
+import { RowActions } from "./Table/RowActions";
 
 function App() {
-  return <SortableColumn />;
+  return <RowActions />;
 }
 
 export default App;

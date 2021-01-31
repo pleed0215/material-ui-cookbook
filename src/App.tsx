@@ -1,9 +1,8 @@
 import React from "react";
-
-import { RowActions } from "./Table/RowActions";
+import { PositioningSnackbar } from "./Snackbar/PositioningSnackbar";
 
 function App() {
-  return <RowActions />;
+  return <PositioningSnackbar />;
 }
 
 export default App;

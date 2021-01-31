@@ -1,8 +1,8 @@
 import React from "react";
-import { PositioningSnackbar } from "./Snackbar/PositioningSnackbar";
+import { QueuingSnackbar } from "./Snackbar/QueuingSnackbar";
 
 function App() {
-  return <PositioningSnackbar />;
+  return <QueuingSnackbar />;
 }
 
 export default App;

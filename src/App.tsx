@@ -1,8 +1,9 @@
 import React from "react";
-import { QueuingSnackbar } from "./Snackbar/QueuingSnackbar";
+import { ButtonAccent } from "./Button/ButtonAccent";
+import { ButtonAccentAdditional } from "./Button/ButtonAccentAddtional";
 
 function App() {
-  return <QueuingSnackbar />;
+  return <ButtonAccentAdditional />;
 }
 
 export default App;

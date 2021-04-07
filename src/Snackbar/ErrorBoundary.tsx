@@ -16,7 +16,11 @@ interface State {
 
 const ErrorBoundary = withStyles(styles)(
   class extends React.Component<Props, State> {
-    state = { error: null };
+    constructor(props: Props) {
+      super(props);
+      this.state = { error: null };
+    }
+
     onClose = () => {
       this.setState({ error: null });
     };

@@ -1,9 +1,9 @@
 import React from "react";
-import { ButtonAccent } from "./Button/ButtonAccent";
-import { ButtonAccentAdditional } from "./Button/ButtonAccentAddtional";
+
+import { LinkButton } from "./Button/LinkButton";
 
 function App() {
-  return <ButtonAccentAdditional />;
+  return <LinkButton />;
 }
 
 export default App;

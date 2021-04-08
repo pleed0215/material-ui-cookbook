@@ -1,8 +1,8 @@
 import React from "react";
-import { AnotherAdornments } from "./Input/AnotherAdornments";
+import { SelectMultiItems } from "./Checkbox/SelectMultiItems";
 
 function App() {
-  return <AnotherAdornments />;
+  return <SelectMultiItems />;
 }
 
 export default App;

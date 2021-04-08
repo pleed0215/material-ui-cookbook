@@ -1,9 +1,8 @@
 import React from "react";
-
-import { LinkButton } from "./Button/LinkButton";
+import { AnotherAdornments } from "./Input/AnotherAdornments";
 
 function App() {
-  return <LinkButton />;
+  return <AnotherAdornments />;
 }
 
 export default App;

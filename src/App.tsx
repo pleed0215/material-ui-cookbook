@@ -1,11 +1,8 @@
 import React from "react";
-
-import { UsingDatePickers } from "./DateAndTime/UsingDatePickers";
+import { CollectingFormInput } from "./Dialogue/CollecingFormInput";
 
 function App() {
-  return <UsingDatePickers />;
+  return <CollectingFormInput />;
 }
 
 export default App;
-
-

@@ -1,8 +1,8 @@
 import React from "react";
-import { CollectingFormInput } from "./Dialogue/CollecingFormInput";
+import HiddenAndBreakpoints from "./FromMaterialUI/HiddenAndBreakpoints";
 
 function App() {
-  return <CollectingFormInput />;
+  return <HiddenAndBreakpoints />;
 }
 
 export default App;
